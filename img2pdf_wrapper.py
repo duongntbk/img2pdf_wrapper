@@ -38,6 +38,11 @@ class Img2PdfWrapper:
 
         try:
             img_list = self.load_img_list(img_path)
+            # img2pdf cannot handle an empty array. Display a clearer warning
+            if not img_list:
+                print('Cannot load image list or image folder is empty.')
+                return
+
             pdf_bytes = img2pdf.convert(img_list)
             
             with open(output_path, 'wb') as f:
